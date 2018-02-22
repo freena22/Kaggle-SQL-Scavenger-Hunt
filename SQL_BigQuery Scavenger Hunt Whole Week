@@ -1,0 +1,65 @@
+{
+  "cells": [
+    {
+      "metadata": {
+        "_uuid": "9bedaf789fb205d7881502ba51535729acdde523"
+      },
+      "cell_type": "markdown",
+      "source": "### Introduction \n"
+    },
+    {
+      "metadata": {
+        "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+        "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+        "trusted": true,
+        "collapsed": true
+      },
+      "cell_type": "code",
+      "source": "import numpy as np\nimport pandas as pd\nfrom bq_helper import BigQueryHelper\nimport matplotlib.pyplot as plt\nimport seaborn as sns",
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "metadata": {
+        "_uuid": "d629ff2d2480ee46fbb7e2d37f6b5fab8052498a",
+        "_cell_guid": "79c7e3d0-c299-4dcb-8224-4455121ee9b0",
+        "trusted": true
+      },
+      "cell_type": "code",
+      "source": "openaq = BigQueryHelper(\"bigquery-public-data\", \"openaq\")\nopenaq.head(\"global_air_quality\")",
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "execution_count": 2,
+          "data": {
+            "text/plain": "             location city country pollutant  value                 timestamp  \\\n0     Mobile_Cle Elum  037      US      pm25    0.0 2017-09-26 20:00:00+00:00   \n1  Mobile_WhiteSalmon  039      US      pm25    0.0 2017-09-26 20:00:00+00:00   \n2      Mobile_Newport  051      US      pm25    0.0 2017-09-21 18:00:00+00:00   \n3             FR20047  Ain      FR      pm10   18.7 2018-02-13 07:00:00+00:00   \n4             FR20047  Ain      FR       no2   45.4 2018-02-13 07:00:00+00:00   \n\n    unit source_name   latitude   longitude  averaged_over_in_hours  \n0  µg/m³      AirNow  47.197630 -120.958230                     1.0  \n1  µg/m³      AirNow  45.732414 -121.492330                     1.0  \n2  µg/m³      AirNow  48.186485 -117.049160                     1.0  \n3  µg/m³  EEA France  45.823223    4.953958                     1.0  \n4  µg/m³  EEA France  45.823223    4.953958                     1.0  ",
+            "text/html": "<div>\n<style>\n    .dataframe thead tr:only-child th {\n        text-align: right;\n    }\n\n    .dataframe thead th {\n        text-align: left;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>location</th>\n      <th>city</th>\n      <th>country</th>\n      <th>pollutant</th>\n      <th>value</th>\n      <th>timestamp</th>\n      <th>unit</th>\n      <th>source_name</th>\n      <th>latitude</th>\n      <th>longitude</th>\n      <th>averaged_over_in_hours</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>Mobile_Cle Elum</td>\n      <td>037</td>\n      <td>US</td>\n      <td>pm25</td>\n      <td>0.0</td>\n      <td>2017-09-26 20:00:00+00:00</td>\n      <td>µg/m³</td>\n      <td>AirNow</td>\n      <td>47.197630</td>\n      <td>-120.958230</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>Mobile_WhiteSalmon</td>\n      <td>039</td>\n      <td>US</td>\n      <td>pm25</td>\n      <td>0.0</td>\n      <td>2017-09-26 20:00:00+00:00</td>\n      <td>µg/m³</td>\n      <td>AirNow</td>\n      <td>45.732414</td>\n      <td>-121.492330</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>Mobile_Newport</td>\n      <td>051</td>\n      <td>US</td>\n      <td>pm25</td>\n      <td>0.0</td>\n      <td>2017-09-21 18:00:00+00:00</td>\n      <td>µg/m³</td>\n      <td>AirNow</td>\n      <td>48.186485</td>\n      <td>-117.049160</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>FR20047</td>\n      <td>Ain</td>\n      <td>FR</td>\n      <td>pm10</td>\n      <td>18.7</td>\n      <td>2018-02-13 07:00:00+00:00</td>\n      <td>µg/m³</td>\n      <td>EEA France</td>\n      <td>45.823223</td>\n      <td>4.953958</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>FR20047</td>\n      <td>Ain</td>\n      <td>FR</td>\n      <td>no2</td>\n      <td>45.4</td>\n      <td>2018-02-13 07:00:00+00:00</td>\n      <td>µg/m³</td>\n      <td>EEA France</td>\n      <td>45.823223</td>\n      <td>4.953958</td>\n      <td>1.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "language_info": {
+      "name": "python",
+      "version": "3.6.4",
+      "mimetype": "text/x-python",
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "pygments_lexer": "ipython3",
+      "nbconvert_exporter": "python",
+      "file_extension": ".py"
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 1
+}
